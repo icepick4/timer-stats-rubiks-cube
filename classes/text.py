@@ -1,6 +1,6 @@
 
 class Text:
-    def __init__(self, screen, text, font, pos, color):
+    def __init__(self, screen, text, font, color, pos):
         self.screen = screen
         self.text = text
         self.font = font

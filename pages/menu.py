@@ -1,4 +1,6 @@
 from variables import *
+from .stats import *
+from .timer import *
 try:
     import pygame
     from pygame.locals import *
@@ -14,21 +16,18 @@ def mainMenu():
         posY = posMouse[1]
 
         if endButton.checkMouse(posX, posY):
-            endButton.bgColor = (50,50,50)
             endButton.color = (180,255,50)
         else:
             endButton.bgColor = BLACK
             endButton.color = RED
 
         if statsButton.checkMouse(posX, posY):
-            statsButton.bgColor = (50,50,50)
             statsButton.color = (180,255,50)
         else:
             statsButton.bgColor = BLACK
             statsButton.color = RED
 
         if timerButton.checkMouse(posX, posY):
-            timerButton.bgColor = (50,50,50)
             timerButton.color = (180,255,50)
         else:
             timerButton.bgColor = BLACK
@@ -41,13 +40,12 @@ def mainMenu():
                 if endButton.checkMouse(posX, posY):
                     playing = False
                 elif statsButton.checkMouse(posX, posY):
-                    #stats screen
-                    pass
+                    playing = stats(True)
                 elif timerButton.checkMouse(posX, posY):
-                    #timer screen
-                    pass
+                    playing = timer(True)
         statsButton.display()
         timerButton.display()
         endButton.display()
+        screen.blit(menuImage, (width / 2 - 250 / 2, 100))
         pygame.display.flip()
     pygame.quit()
