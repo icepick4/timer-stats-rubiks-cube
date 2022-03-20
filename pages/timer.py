@@ -12,6 +12,8 @@ def timer(playing):
     chrono = "0"
     lastChronos = [0]
     while playing:
+        # if listOfCubes[selectedCube][1].text == "3x3":
+        #     timerHeader.text = scrambler333.get_WCA_scramble()
         #pos mouse
         screen.fill((255,255,255))
         posMouse = pygame.mouse.get_pos()

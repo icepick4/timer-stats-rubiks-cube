@@ -38,16 +38,16 @@ font300 = pygame.font.Font(fontPath, 300)
 #####MENU PAGE#####
 #bouton pour fermer la fenetre
 endButton = Button(screen, "CLOSE", font50, BLACK, RED,(width / 1.1, 20))
-statsButton = Button(screen,"STATS", font75, BLACK, RED,(width / 2 - 250, height / 2 - 50))
-timerButton = Button(screen, "TIMER", font75, BLACK, RED, (width/2 +75, height / 2 - 50))
+statsButton = Button(screen,"STATS", font125, BLACK, RED,(width / 2 - 400, height / 2 +100))
+timerButton = Button(screen, "TIMER", font125, BLACK, RED, (width/2 +150, height / 2 +100))
 overAllStatsButton = Button(screen, "OVER ALL STATS", font50, BLACK, RED, (width / 20, height - height / 10))
 exitButton = Button(screen, "EXIT", font50, BLACK, RED, (20,20))
-menuImage = pygame.transform.smoothscale(pygame.image.load("assets/image/rubik's_cube.png").convert_alpha(), (240,250))
+menuImage = pygame.transform.smoothscale(pygame.image.load("assets/image/rubik's_cube.png").convert_alpha(), (380,400))
 
 with open("data.json", "r") as f:
     data = json.load(f)
 #####TIMER PAGE#####
-timerHeader = Text(screen, "PUT SCRAMBLE", font75, BLACK, (width / 2 , 20))
+timerHeader = Text(screen, "SCRAMBLE : ", font75, BLACK, (width / 10 , 20))
 listOfCubesPaths = glob.glob("assets/image/cubes/*")
 listOfCubes = []
 for path in listOfCubesPaths:

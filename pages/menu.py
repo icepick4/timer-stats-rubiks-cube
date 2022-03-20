@@ -46,6 +46,6 @@ def mainMenu():
         statsButton.display()
         timerButton.display()
         endButton.display()
-        screen.blit(menuImage, (width / 2 - 250 / 2, 100))
+        screen.blit(menuImage, (width / 2 - 300 / 2, 100))
         pygame.display.flip()
     pygame.quit()
