@@ -54,6 +54,7 @@ for path in listOfCubesPaths:
     listOfCubes.append([pygame.transform.smoothscale(pygame.image.load(path).convert_alpha(), (330,300)),Text(screen, path[19:len(path)-4].replace("_"," "), font75, BLACK, (width / 2, height /1.6))])
 cubesRect = pygame.Rect((width / 2 - 330 / 2, height / 1.4, 330,300))
 chronoText = font200.render("{0}".format(0.00), True, BLACK)
+chronoRect = chronoText.get_rect(midtop=(width/2 - chronoText.get_width() / 4, height / 2 - chronoText.get_height()))
 lastChrono = 0
 
 #####STATS PAGE#####

@@ -1,4 +1,5 @@
 import pygame
+from functions import toMinutes
 from variables import *
 
 def stats(playing):
@@ -55,7 +56,7 @@ def stats(playing):
             pygame.draw.polygon(screen, BLACK, [(width - 20, height / 2), (width - 100, height / 2.2), (width - 100, height / 1.8)])
         else:
             pygame.draw.polygon(screen, RED, [(width - 20, height / 2), (width - 100, height / 2.2), (width - 100, height / 1.8)])
-        if not overAll and len(set(listOfDates)) > 1:
+        if not overAll and len(listOfDates) > 1:
             #up
             if time() - timeArrowUp > 0.1:
                 pygame.draw.polygon(screen, BLACK, [(width / 2, 20), (width / 2 + width * 0.03, 100), (width / 2 - width * 0.03, 100)])
@@ -81,6 +82,12 @@ def stats(playing):
                         if score[1] < best:
                             best = score[1]
                 avg = round(total / ctr,2)
+                if avg > 60:
+                    avg = toMinutes(avg)
+                if best > 60:
+                    best = toMinutes(best)
+                if worst > 60:
+                    worst = toMinutes(worst)  
                 avgText = Text(screen, "Average : {0}".format(avg), font125, BLACK, (width / 2, height / 2.5 - 150))
                 bestText = Text(screen, "Best : {0}".format(best), font125, GREEN, (width / 2, height / 2.5))
                 worstText = Text(screen, "Worst : {0}".format(worst), font125, RED, (width / 2, height / 2.5 + 150))
@@ -89,6 +96,12 @@ def stats(playing):
                 avg = round(sum(listOfScores) / len(listOfScores),2)
                 best = min(listOfScores)
                 worst = max(listOfScores)
+                if avg > 60:
+                    avg = toMinutes(avg)
+                if best > 60:
+                    best = toMinutes(best)
+                if worst > 60:
+                    worst = toMinutes(worst)
                 avgText = Text(screen, "Average : {0}".format(avg), font125, BLACK, (width / 2, height / 2.5 - 150))
                 bestText = Text(screen, "Best : {0}".format(best), font125, GREEN, (width / 2, height / 2.5))
                 worstText = Text(screen, "Worst : {0}".format(worst), font125, RED, (width / 2, height / 2.5 + 150))
