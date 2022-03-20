@@ -5,8 +5,8 @@ class Text:
         self.text = text
         self.font = font
         self.color = color
-        self.pos = pos
         self.surface = self.font.render(self.text, True, self.color)
+        self.pos = (pos[0] - self.surface.get_width() / 2, pos[1])
         self.rect = self.surface.get_rect(topleft=self.pos)
 
     def display(self):
