@@ -2,6 +2,7 @@ import pygame
 from variables import *
 from functions import toMinutes
 import json
+
 def timer(playing):
     screen.fill((255,255,255))
     selectedCube = 0
@@ -14,8 +15,6 @@ def timer(playing):
     lastChronos = [0.0]
     chronoText = font200.render("{0}".format(0.00), True, BLACK)
     while playing:
-        # if listOfCubes[selectedCube][1].text == "3x3":
-        #     timerHeader.text = scrambler333.get_WCA_scramble()
         #pos mouse
         screen.fill((255,255,255))
         posMouse = pygame.mouse.get_pos()
@@ -26,6 +25,11 @@ def timer(playing):
         else:
             exitButton.bgColor = BLACK
             exitButton.color = RED
+        if removeButton.checkMouse(posX, posY):
+            removeButton.color = (180,255,50)
+        else:
+            removeButton.bgColor = BLACK
+            removeButton.color = RED
 
         #statement of pushing arrow or not 
         if time() - timeArrowLeft > 0.1:
@@ -43,6 +47,14 @@ def timer(playing):
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 :
                 if exitButton.checkMouse(posX, posY):
                     playing = False
+                if removeButton.checkMouse(posX, posY):
+                    if len(lastChronos) > 1:
+                        lastChronos.pop()
+                    try:
+                        data[listOfCubes[selectedCube][1].text].pop()
+                    except:
+                        #empty list
+                        pass
             elif event.type == KEYDOWN:
                 if event.key == K_LEFT:
                     timeArrowLeft = time()
@@ -60,8 +72,6 @@ def timer(playing):
                     if inChrono:
                         inChrono = False
                         data[listOfCubes[selectedCube][1].text].append({"time": chrono, "date":date})
-                        with open("data.json", "w") as f:
-                             json.dump(data, f, indent=4)
                         lastChronos.append(float(chrono))
                     startHolding = time()
                     holding = True
@@ -99,7 +109,7 @@ def timer(playing):
         exitButton.display()
         listOfCubes[selectedCube][1].display()
         screen.blit(listOfCubes[selectedCube][0], cubesRect)
-        
+        removeButton.display()
         
         if inChrono:    
             screen.fill((255,255,255))
@@ -120,7 +130,8 @@ def timer(playing):
             else:
                 chronoText = font300.render("{0}".format(chrono), True, BLACK)  
         screen.blit(chronoText, chronoRect)
-
         pygame.display.flip()
     screen.fill((255,255,255))
+    with open("data.json", "w") as f:
+        json.dump(data, f, indent=4)
     return True

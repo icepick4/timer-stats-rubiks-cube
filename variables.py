@@ -1,10 +1,7 @@
 from classes.button import Button
 from classes.text import Text
-from classes.font import Font
 from datetime import datetime
 from time import time
-from time import strftime
-from time import gmtime
 import glob
 import pygame 
 import json
@@ -17,6 +14,7 @@ BLACK = (0,0,0)
 GREY = (50,50,50)
 WHITE = (255,255,255)
 GREEN = (50,255,50)
+
 date = datetime.today().strftime('%d-%m-%Y')
 
 #setting window
@@ -46,6 +44,7 @@ menuImage = pygame.transform.smoothscale(pygame.image.load("assets/image/rubik's
 
 with open("data.json", "r") as f:
     data = json.load(f)
+
 #####TIMER PAGE#####
 timerHeader = Text(screen, "SCRAMBLE : ", font75, BLACK, (width / 10 , 20))
 listOfCubesPaths = glob.glob("assets/image/cubes/*")
@@ -55,6 +54,7 @@ for path in listOfCubesPaths:
 cubesRect = pygame.Rect((width / 2 - 330 / 2, height / 1.4, 330,300))
 chronoText = font200.render("{0}".format(0.00), True, BLACK)
 chronoRect = chronoText.get_rect(midtop=(width/2 - chronoText.get_width() / 4, height / 2 - chronoText.get_height()))
+removeButton = Button(screen, "REMOVE LAST TIME", font50, BLACK, RED, (width - width / 3.5, height - 100))
 lastChrono = 0
 
 #####STATS PAGE#####
