@@ -17,7 +17,7 @@ BLACK = (0,0,0)
 GREY = (50,50,50)
 WHITE = (255,255,255)
 GREEN = (50,255,50)
-date = datetime.today().strftime('%Y-%m-%d')
+date = datetime.today().strftime('%d-%m-%Y')
 
 #setting window
 windowSize = pygame.display.get_desktop_sizes()[0]
@@ -53,6 +53,8 @@ for path in listOfCubesPaths:
     listOfCubes.append([pygame.transform.smoothscale(pygame.image.load(path).convert_alpha(), (330,300)),Text(screen, path[19:len(path)-4].replace("_"," "), font75, BLACK, (width / 2, height /1.6))])
 cubesRect = pygame.Rect((width / 2 - 330 / 2, height / 1.4, 330,300))
 chronoText = font200.render("{0}".format(0.00), True, BLACK)
-statsHeader = Text(screen, "STATS", font75, BLACK, (width / 2, 20))
 lastChrono = 0
+
+#####STATS PAGE#####
+
 screen.fill((255,255,255))

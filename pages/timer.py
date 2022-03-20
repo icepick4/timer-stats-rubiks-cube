@@ -5,8 +5,8 @@ def timer(playing):
     screen.fill((255,255,255))
     selectedCube = 0
     startTime = time()
-    timeArrowLeft = time() - 0.2
-    timeArrowRight = time() - 0.2
+    timeArrowLeft = time() - 0.1
+    timeArrowRight = time() - 0.1
     inChrono = False
     holding = False
     chrono = "0"
@@ -24,11 +24,11 @@ def timer(playing):
             exitButton.color = RED
 
         #statement of pushing arrow or not 
-        if time() - timeArrowLeft > 0.2:
+        if time() - timeArrowLeft > 0.1:
             pygame.draw.polygon(screen, BLACK, [(width / 2 - 300, height / 1.2), (width / 2 - 200, height / 1.3), (width / 2 - 200, height / 1.1)])
         else:
             pygame.draw.polygon(screen, RED, [(width / 2 - 300, height / 1.2), (width / 2 - 200, height / 1.3), (width / 2 - 200, height / 1.1)])
-        if time() - timeArrowRight > 0.2:
+        if time() - timeArrowRight > 0.1:
             pygame.draw.polygon(screen, BLACK, [(width / 2 + 300, height / 1.2), (width / 2 + 200, height / 1.3), (width / 2 + 200, height / 1.1)])
         else:
             pygame.draw.polygon(screen, RED, [(width / 2 + 300, height / 1.2), (width / 2 + 200, height / 1.3), (width / 2 + 200, height / 1.1)])
