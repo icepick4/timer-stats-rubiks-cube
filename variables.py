@@ -13,7 +13,7 @@ YELLOW = (255,215,0)
 BLACK = (0,0,0)
 GREY = (50,50,50)
 WHITE = (255,255,255)
-
+GREEN = (50,255,50)
 date = datetime.today().strftime('%Y-%m-%d')
 
 #setting window
@@ -30,7 +30,8 @@ font50 = pygame.font.Font(fontPath, 50)
 font75 = pygame.font.Font(fontPath, 75)
 font100 = pygame.font.Font(fontPath, 100)
 font125 = pygame.font.Font(fontPath, 125)
-
+font200 = pygame.font.Font(fontPath, 200)
+font300 = pygame.font.Font(fontPath, 300)
 #####MENU PAGE#####
 #bouton pour fermer la fenetre
 endButton = Button(screen, "CLOSE", font50, BLACK, RED,(width / 1.1, 20))
@@ -41,15 +42,12 @@ menuImage = pygame.transform.smoothscale(pygame.image.load("assets/image/rubik's
 
 #####TIMER PAGE#####
 timerHeader = Text(screen, "TIMER", font75, BLACK, (width / 2 , 20))
-chooseTitle = Text(screen, "CHOOSE YOUR CUBE", font50, BLACK, (width / 2, height /1.5))
 listOfCubesPaths = glob.glob("assets/image/cubes/*")
 listOfCubes = []
 for path in listOfCubesPaths:
-    listOfCubes.append(pygame.transform.smoothscale(pygame.image.load(path).convert_alpha(), (330,300)))
+    listOfCubes.append([pygame.transform.smoothscale(pygame.image.load(path).convert_alpha(), (330,300)),Text(screen, path[19:len(path)-4].replace("_"," "), font75, BLACK, (width / 2, height /1.6))])
 cubesRect = pygame.Rect((width / 2 - 330 / 2, height / 1.4, 330,300))
-timer = time() - time()
-chrono = Text(screen, "{}".format(timer), font125, BLACK, (width / 2, height / 2))
-
+chronoText = font200.render("{0}".format(0.00), True, BLACK)
 statsHeader = Text(screen, "STATS", font75, BLACK, (width / 2, 20))
 
 screen.fill((255,255,255))
