@@ -3,8 +3,11 @@ from classes.text import Text
 from classes.font import Font
 from datetime import datetime
 from time import time
+from time import strftime
+from time import gmtime
 import glob
 import pygame 
+import json
 from pygame.locals import *  
 pygame.init()
 
@@ -40,8 +43,10 @@ timerButton = Button(screen, "TIMER", font75, BLACK, RED, (width/2 +75, height /
 exitButton = Button(screen, "EXIT", font50, BLACK, RED, (20,20))
 menuImage = pygame.transform.smoothscale(pygame.image.load("assets/image/rubik's_cube.png").convert_alpha(), (240,250))
 
+with open("data.json", "r") as f:
+    data = json.load(f)
 #####TIMER PAGE#####
-timerHeader = Text(screen, "TIMER", font75, BLACK, (width / 2 , 20))
+timerHeader = Text(screen, "PUT SCRAMBLE", font75, BLACK, (width / 2 , 20))
 listOfCubesPaths = glob.glob("assets/image/cubes/*")
 listOfCubes = []
 for path in listOfCubesPaths:
@@ -49,5 +54,5 @@ for path in listOfCubesPaths:
 cubesRect = pygame.Rect((width / 2 - 330 / 2, height / 1.4, 330,300))
 chronoText = font200.render("{0}".format(0.00), True, BLACK)
 statsHeader = Text(screen, "STATS", font75, BLACK, (width / 2, 20))
-
+lastChrono = 0
 screen.fill((255,255,255))

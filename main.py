@@ -4,7 +4,6 @@ import json
 
 def main():
     mainMenu()
-
     
     #########WRITING IN JSON DATA##################
     # with open("data.json", "r") as f:
