@@ -40,6 +40,7 @@ font300 = pygame.font.Font(fontPath, 300)
 endButton = Button(screen, "CLOSE", font50, BLACK, RED,(width / 1.1, 20))
 statsButton = Button(screen,"STATS", font75, BLACK, RED,(width / 2 - 250, height / 2 - 50))
 timerButton = Button(screen, "TIMER", font75, BLACK, RED, (width/2 +75, height / 2 - 50))
+overAllStatsButton = Button(screen, "OVER ALL STATS", font50, BLACK, RED, (width / 20, height - height / 10))
 exitButton = Button(screen, "EXIT", font50, BLACK, RED, (20,20))
 menuImage = pygame.transform.smoothscale(pygame.image.load("assets/image/rubik's_cube.png").convert_alpha(), (240,250))
 
