@@ -21,6 +21,7 @@ date = datetime.today().strftime('%d-%m-%Y')
 windowSize = pygame.display.get_desktop_sizes()[0]
 screen = pygame.display.set_mode(windowSize)
 width = windowSize[0]
+print(width * 0.02)
 height = windowSize[1]
 
 playing = True
@@ -33,9 +34,10 @@ font100 = pygame.font.Font(fontPath, 100)
 font125 = pygame.font.Font(fontPath, 125)
 font200 = pygame.font.Font(fontPath, 200)
 font300 = pygame.font.Font(fontPath, 300)
+fontWidth = pygame.font.Font(fontPath, int(width * 0.025))
 #####MENU PAGE#####
 #bouton pour fermer la fenetre
-endButton = Button(screen, "CLOSE", font50, BLACK, RED,(width / 1.1, 20))
+endButton = Button(screen, "CLOSE", font50, BLACK, RED,(width - width / 9, 20))
 statsButton = Button(screen,"STATS", font125, BLACK, RED,(width / 2 - 400, height / 2 +100))
 timerButton = Button(screen, "TIMER", font125, BLACK, RED, (width/2 +150, height / 2 +100))
 overAllStatsButton = Button(screen, "OVER ALL STATS", font50, BLACK, RED, (width / 20, height - height / 10))
@@ -50,11 +52,11 @@ timerHeader = Text(screen, "SCRAMBLE : ", font75, BLACK, (width / 10 , 20))
 listOfCubesPaths = glob.glob("assets/image/cubes/*")
 listOfCubes = []
 for path in listOfCubesPaths:
-    listOfCubes.append([pygame.transform.smoothscale(pygame.image.load(path).convert_alpha(), (330,300)),Text(screen, path[19:len(path)-4].replace("_"," "), font75, BLACK, (width / 2, height /1.6))])
-cubesRect = pygame.Rect((width / 2 - 330 / 2, height / 1.4, 330,300))
+    listOfCubes.append([pygame.transform.smoothscale(pygame.image.load(path).convert_alpha(), (330,300)),Text(screen, path[19:len(path)-4].replace("_"," "), font75, BLACK, (width / 2, height /1.7))])
+cubesRect = pygame.Rect((width / 2 - 330 / 2, height / 1.5, 330,300))
 chronoText = font200.render("{0}".format(0.00), True, BLACK)
 chronoRect = chronoText.get_rect(midtop=(width/2 - chronoText.get_width() / 4, height / 2 - chronoText.get_height()))
-removeButton = Button(screen, "REMOVE LAST TIME", font50, BLACK, RED, (width - width / 3.5, height - 100))
+removeButton = Button(screen, "REMOVE LAST TIME", fontWidth, BLACK, RED, (width - width / 3.5, height - 100))
 lastChrono = 0
 
 #####STATS PAGE#####

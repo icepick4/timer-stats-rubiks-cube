@@ -12,14 +12,31 @@ def timer(playing):
     inChrono = False
     holding = False
     chrono = "0.0"
-    lastChronos = [0.0]
+    lastChronos = {
+    "2x2": [],
+    "3x3": [],
+    "4x4": [],
+    "5x5": [],
+    "6x6": [],
+    "7x7": [],
+    "megaminx": [],
+    "mirror 3x3": [],
+    "mirror 4x4": [],
+    "mirror 5x5": [],
+    "pyraminx": [],
+    "skewb": []
+}
     chronoText = font200.render("{0}".format(0.00), True, BLACK)
     while playing:
+        #the current cube
+        currentCube = listOfCubes[selectedCube][1].text
         #pos mouse
         screen.fill((255,255,255))
         posMouse = pygame.mouse.get_pos()
         posX = posMouse[0]
         posY = posMouse[1]
+
+        #hover button
         if exitButton.checkMouse(posX, posY):
             exitButton.color = (180,255,50)
         else:
@@ -45,16 +62,18 @@ def timer(playing):
             if event.type == QUIT:
                 playing = False
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 :
+                #checking for button pressed
                 if exitButton.checkMouse(posX, posY):
                     playing = False
                 if removeButton.checkMouse(posX, posY):
-                    if len(lastChronos) > 1:
-                        lastChronos.pop()
+                    if len(lastChronos[currentCube]) > 0:
+                        lastChronos[currentCube].pop()
                     try:
-                        data[listOfCubes[selectedCube][1].text].pop()
+                        data[currentCube].pop()
                     except:
                         #empty list
                         pass
+            #choose the cube you want
             elif event.type == KEYDOWN:
                 if event.key == K_LEFT:
                     timeArrowLeft = time()
@@ -71,46 +90,53 @@ def timer(playing):
                 elif event.key == K_SPACE:
                     if inChrono:
                         inChrono = False
-                        data[listOfCubes[selectedCube][1].text].append({"time": chrono, "date":date})
-                        lastChronos.append(float(chrono))
+                        data[currentCube].append({"time": chrono, "date":date})
+                        lastChronos[currentCube].append(float(chrono))
                     startHolding = time()
-                    holding = True
-                    
-                    
+                    holding = True      
             elif event.type == KEYUP:
                 if event.key == K_SPACE:
+                    #chekc holding enought time
                     if time() - startHolding > 0.5:
                         inChrono = True
                         startTime = time()
                     else:
                         holding = False
-        lastChrono = lastChronos[-1]
+        #update dict of lastchronos and chrono
+        try:
+            lastChrono = lastChronos[currentCube][-1]
+        except:
+            lastChrono = 0.0
         if inChrono:
             chrono = str(round(time() - startTime, 2))
         else:
             chrono = str(float(lastChrono))
+        #update the last score
         if lastChrono != 0:
             if lastChrono > 60:
                 lastChrono = toMinutes(lastChrono)
             last = font75.render("Last : {0}".format(lastChrono), True, BLACK)
             screen.blit(last, (width - last.get_width() - 20, 10))
-        if len(lastChronos) > 5:
-            avg5 = round(sum(lastChronos[len(lastChronos) - 5: len(lastChronos)])/ 5, 2)
+        #update the current ao5
+        if len(lastChronos[currentCube]) > 5:
+            avg5 = round(sum(lastChronos[currentCube][len(lastChronos[currentCube]) - 5: len(lastChronos[currentCube])])/ 5, 2)
             if avg5 > 60:
                 avg5 = toMinutes(avg5)
             ao5 = font75.render("ao5 : {0}".format(avg5), True, BLACK)
             screen.blit(ao5, (width / 1.3, 100))
+        #update the current ao12
         if len(lastChronos) > 12:
-            avg12 = round(sum(lastChronos[len(lastChronos) - 12: len(lastChronos)])/ 12, 2)
+            avg12 = round(sum(lastChronos[currentCube][len(lastChronos[currentCube]) - 12: len(lastChronos[currentCube])])/ 12, 2)
             if avg12 > 60:
                 avg12 = toMinutes(avg12)
             ao12 = font75.render("ao12 : {0}".format(avg12), True, BLACK)
             screen.blit(ao12, (width / 1.3, 200))
+
+        #####DISPLAYS#####
         exitButton.display()
         listOfCubes[selectedCube][1].display()
         screen.blit(listOfCubes[selectedCube][0], cubesRect)
         removeButton.display()
-        
         if inChrono:    
             screen.fill((255,255,255))
             if float(chrono) > 60:
