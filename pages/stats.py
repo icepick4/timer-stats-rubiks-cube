@@ -14,11 +14,15 @@ def stats(playing):
     overAll = False
     switched = True
     for i in range(len(listOfCubes)):
-        listOfCubes[i][1].rect = listOfCubes[i][1].surface.get_rect(topright=(width -20, 0))
+        listOfCubes[i][1].rect = listOfCubes[i][1].surface.get_rect(topright=(width -10, 10))
+        listOfCubes[i][0] = pygame.transform.smoothscale(listOfCubes[i][0], (150,135))
     while playing:
+        currentCube = listOfCubes[selectedCube][1]
         screen.fill((255,255,255))
+
+        #display selected stats
         if not overAll and switched:
-            for score in data[listOfCubes[selectedCube][1].text]:
+            for score in data[currentCube.text]:
                 date = Text(screen, score['date'].replace("-", "/"), font75, BLACK, (width - 225, height - 100))
                 if listOfDates != []:
                     if listOfDates[-1].text != score['date'].replace("-", "/"):
@@ -28,24 +32,28 @@ def stats(playing):
                 listOfScores.append([date, float(score['time'])])
             switched = False
         elif overAll and switched:
-            for score in data[listOfCubes[selectedCube][1].text]:
+            for score in data[currentCube.text]:
                 listOfScores.append(float(score['time']))
             switched = False
+
         #pos mouse
         posMouse = pygame.mouse.get_pos()
         posX = posMouse[0]
         posY = posMouse[1]
+
+        #####HOVER#####
         if exitButton.checkMouse(posX, posY):
-            exitButton.color = (180,255,50)
+            exitButton.color = GREENHOVER
         else:
             exitButton.bgColor = BLACK
             exitButton.color = RED
         if overAllStatsButton.checkMouse(posX, posY):
-            overAllStatsButton.color = (180,255,50)
+            overAllStatsButton.color = GREENHOVER
         else:
             overAllStatsButton.bgColor = BLACK
             overAllStatsButton.color = RED
 
+        #####ARROWS#####
         #left
         if time() - timeArrowLeft > 0.1:
             pygame.draw.polygon(screen, BLACK, [(20, height / 2), (100, height / 2.2), (100, height / 1.8)])
@@ -111,6 +119,8 @@ def stats(playing):
         except:
             noData = Text(screen, "No Data", font200, BLACK, (width/2, height / 2.5))
             noData.display()
+
+            
         for event in pygame.event.get():
             if event.type == QUIT:
                 playing = False
@@ -163,6 +173,7 @@ def stats(playing):
                     else:
                         selectedDate = 0
         listOfCubes[selectedCube][1].display()
+        screen.blit(listOfCubes[selectedCube][0], (width - 150, 75))
         overAllStatsButton.display()
         exitButton.display()
         pygame.display.flip()

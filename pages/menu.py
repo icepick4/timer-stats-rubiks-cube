@@ -16,19 +16,19 @@ def mainMenu():
         posY = posMouse[1]
 
         if endButton.checkMouse(posX, posY):
-            endButton.color = (180,255,50)
+            endButton.color = GREENHOVER
         else:
             endButton.bgColor = BLACK
             endButton.color = RED
 
         if statsButton.checkMouse(posX, posY):
-            statsButton.color = (180,255,50)
+            statsButton.color = GREENHOVER
         else:
             statsButton.bgColor = BLACK
             statsButton.color = RED
 
         if timerButton.checkMouse(posX, posY):
-            timerButton.color = (180,255,50)
+            timerButton.color = GREENHOVER
         else:
             timerButton.bgColor = BLACK
             timerButton.color = RED

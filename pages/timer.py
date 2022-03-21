@@ -38,12 +38,12 @@ def timer(playing):
 
         #hover button
         if exitButton.checkMouse(posX, posY):
-            exitButton.color = (180,255,50)
+            exitButton.color = GREENHOVER
         else:
             exitButton.bgColor = BLACK
             exitButton.color = RED
         if removeButton.checkMouse(posX, posY):
-            removeButton.color = (180,255,50)
+            removeButton.color = GREENHOVER
         else:
             removeButton.bgColor = BLACK
             removeButton.color = RED
