@@ -1,9 +1,15 @@
-import pygame
-from variables import *
-from functions import toMinutes
+"""MODULES"""
+from time import time
 import json
+import pygame
+# from pygame.locals import *
+from functions import toMinutes, getPosMouse
+from variables import screen,font200, listOfCubes, exitButton, removeButton, width, height
+
+
 
 def timer(playing):
+    """TIMER PAGE"""
     screen.fill((255,255,255))
     selectedCube = 0
     startTime = time()
@@ -32,9 +38,7 @@ def timer(playing):
         currentCube = listOfCubes[selectedCube][1].text
         #pos mouse
         screen.fill((255,255,255))
-        posMouse = pygame.mouse.get_pos()
-        posX = posMouse[0]
-        posY = posMouse[1]
+        posX, posY = getPosMouse()
 
         #hover button
         if exitButton.checkMouse(posX, posY):

@@ -1,6 +1,8 @@
 from variables import *
-from .stats import *
-from .timer import *
+from functions import getPosMouse
+from .stats import stats
+from .timer import timer
+
 try:
     import pygame
     from pygame.locals import *
@@ -11,9 +13,7 @@ def mainMenu():
     playing = True
     while playing:
         #pos mouse
-        posMouse = pygame.mouse.get_pos()
-        posX = posMouse[0]
-        posY = posMouse[1]
+        posX, posY = getPosMouse()
 
         if endButton.checkMouse(posX, posY):
             endButton.color = GREENHOVER
