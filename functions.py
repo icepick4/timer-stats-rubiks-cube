@@ -1,7 +1,20 @@
 """functions"""
 from time import time
 import pygame
-from variables import screen, height, width, BLACK, RED, exit_button, over_all_stats_button, GREENHOVER, end_button, stats_button, timer_button, remove_button
+from variables import (
+                    screen,
+                    height,
+                    width,
+                    BLACK,
+                    RED,
+                    exit_button,
+                    over_all_stats_button,
+                    GREENHOVER,
+                    end_button,
+                    stats_button,
+                    timer_button,
+                    remove_button
+)
 
 def to_minutes(chrono):
     """convert seconds to minute display"""

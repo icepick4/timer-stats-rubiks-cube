@@ -1,8 +1,22 @@
 """Import modules"""
-from functions import get_pos_mouse
-from variables import *
-from stats import *
-from timer import *
+from functions import get_pos_mouse, hover
+from variables import (
+                    screen,
+                    stats_button,
+                    timer_button,
+                    menu_image,
+                    end_button,
+                    json,
+                    data,
+                    width,
+                    pygame,
+)
+from pygame.locals import (
+                            QUIT,
+                            MOUSEBUTTONDOWN
+)
+from stats import stats
+from timer import timer
 
 
 def main_menu():

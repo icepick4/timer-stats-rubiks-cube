@@ -1,10 +1,42 @@
 """MODULES"""
 from time import time
-import pygame
-from pygame.locals import *
-from functions import to_minutes,get_pos_mouse,hover,create_triangle_right,create_triangle_left,reset_arrow_left, reset_arrow_right
-# from variables import screen,font200, list_of_cubes, exit_button, remove_button, width, data, font75, font300, cubesRect, date, chronoRect, BLACK, RED, GREEN
-from variables import *
+from functions import (
+                    to_minutes,
+                    get_pos_mouse,
+                    hover,
+                    create_triangle_right,
+                    create_triangle_left,
+                    reset_arrow_left,
+                    reset_arrow_right
+)
+from variables import (
+                font75,
+                font300,
+                width,
+                BLACK,
+                list_of_cubes,
+                screen,
+                data,
+                RED,
+                GREEN,
+                exit_button,
+                Button,
+                pygame,
+                remove_button,
+                cubes_rect,
+                date,
+                chrono_rect
+
+)
+from pygame.locals import (
+                            QUIT,
+                            KEYDOWN,
+                            KEYUP,
+                            K_SPACE,
+                            K_RIGHT,
+                            K_LEFT,
+                            MOUSEBUTTONDOWN
+)
 
 def display_live_stats(chronos, last_chrono, cube):
     """display the stats in live on the right of the timer page"""

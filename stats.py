@@ -1,8 +1,41 @@
 """MODULES"""
 from time import time
 import pygame
-from functions import create_triangle_down, create_triangle_left, create_triangle_right, create_triangle_up, get_pos_mouse, hover, reset_arrow_left, reset_arrow_right, to_minutes
-from variables import *
+from functions import (
+                    create_triangle_down,
+                    create_triangle_left,
+                    create_triangle_right,
+                    create_triangle_up,
+                    get_pos_mouse, hover,
+                    reset_arrow_left,
+                    reset_arrow_right,
+                    to_minutes
+)
+from variables import (
+                Text, 
+                font75,
+                font200,
+                width,
+                height,
+                BLACK,
+                list_of_cubes,
+                screen,
+                data,
+                font125,
+                RED,
+                GREEN,
+                exit_button,
+                over_all_stats_button,
+)
+from pygame.locals import (
+                            QUIT,
+                            KEYDOWN,
+                            K_UP,
+                            K_DOWN,
+                            K_RIGHT,
+                            K_LEFT,
+                            MOUSEBUTTONDOWN
+)
 def over_all_stats(over_all,state):
     """changing state of over_all_stats_button"""
     if state == "OVER ALL STATS":
@@ -12,17 +45,15 @@ def over_all_stats(over_all,state):
         state = "OVER ALL STATS"
         over_all = False
     return over_all, state
-
 def reset_var():
     """reset vars"""
     return [], [], True
 
-def fill_dicos(dico, dico_bool, data, current_cube):
+def fill_dicos(dico, dico_bool, datas, current_cube):
     """fill the dicos of stats page"""
     if not dico_bool["over_all"] and dico_bool["switched"]:
-        for score in data[current_cube.text]:
+        for score in datas[current_cube.text]:
             date_text = Text(
-                            screen,
                             score['date'].replace("-", "/"),
                             font75, BLACK,
                             (width - 225, height - 100)
@@ -35,7 +66,7 @@ def fill_dicos(dico, dico_bool, data, current_cube):
             dico["list_of_scores"].append([date_text, float(score['time'])])
         dico_bool["switched"] = False
     elif dico_bool["over_all"] and dico_bool["switched"]:
-        for score in data[current_cube.text]:
+        for score in datas[current_cube.text]:
             dico["list_of_scores"].append(float(score['time']))
         dico_bool["switched"] = False
     return dico
@@ -68,16 +99,16 @@ def give_stats(list_of_scores, list_of_dates, selected_date, over_all):
         worst = to_minutes(worst)
     return avg, best, worst
 
-def init_cube_stats(list_of_cubes):
+def init_cube_stats(cubes):
     """init pos of cubes in stats page"""
-    for cube in list_of_cubes:
+    for cube in cubes:
         cube[1].rect, cube[0] = cube[1].surface.get_rect(
                                                         topright=(
                                                                 width -10,
                                                                 10
                                                                 )
                                                 ), pygame.transform.smoothscale(cube[0], (150,135))
-    return list_of_cubes
+    return cubes
 
 def create_arrows(over_all, state_date, timer_arrows):
     """creating all arrows on screen"""
@@ -124,19 +155,16 @@ def stats(playing):
                                          dico_bool["over_all"]
                                          )
             Text(
-                screen,
                 f"Average : {avg}",
                 font125, BLACK,
                 (width / 2, height / 2.5 - 150)
             ).display()
             Text(
-                screen,
                 f"Best : {best}",
                 font125, GREEN,
                 (width / 2, height / 2.5)
             ).display()
             Text(
-                screen,
                 f"Worst : {worst}",
                 font125,
                 RED,
@@ -145,7 +173,7 @@ def stats(playing):
             if not dico_bool["over_all"]:
                 dico["list_of_dates"][dico["selected_date"]].display()
         except ZeroDivisionError:
-            Text(screen, "No data", font200, BLACK, (width/2, height / 2.5)).display()
+            Text("No data", font200, BLACK, (width/2, height / 2.5)).display()
         for event in pygame.event.get():
             if event.type == QUIT:
                 playing = False

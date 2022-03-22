@@ -4,14 +4,13 @@ import glob
 import json
 try:
     import pygame
-    from pygame.locals import *
 except ModuleNotFoundError:
     print("""Vous n'avez pas téléchargé le module pygame
     ! \n Téléchargez le avec la commande ci-contre : pip install pygame"""
     )
-
 from classes.button import Button
 from classes.text import Text
+
 
 RED = (255,50,50)
 YELLOW = (255,215,0)
@@ -21,7 +20,7 @@ WHITE = (255,255,255)
 GREEN = (50,255,50)
 GREENHOVER = (28, 184, 48)
 
-pygame.init()
+
 
 #setting window
 window_size = pygame.display.get_desktop_sizes()[0]
@@ -49,7 +48,7 @@ stats_button = Button("STATS", font125, RED,(width / 2 - 400, height / 2 +100))
 timer_button = Button("TIMER", font125, RED, (width/2 +150, height / 2 +100))
 exit_button = Button("EXIT", font50, RED, (20,20))
 menu_image = pygame.transform.smoothscale(
-    pygame.image.load("assets/image/rubik's_cube.png").convert_alpha(), 
+    pygame.image.load("assets/image/rubik's_cube.png").convert_alpha(),
     (380,400)
 )
 
@@ -57,7 +56,7 @@ with open("data.json", "r", encoding = "utf-8") as f:
     data = json.load(f)
 
 #####TIMER PAGE#####
-timer_header = Text(screen, "SCRAMBLE : ", font75, BLACK, (width / 10 , 20))
+timer_header = Text("SCRAMBLE : ", font75, BLACK, (width / 10 , 20))
 list_of_cubes_paths = glob.glob("assets/image/cubes/*")
 list_of_cubes = []
 for path in list_of_cubes_paths:
@@ -66,7 +65,6 @@ for path in list_of_cubes_paths:
                         pygame.image.load(path).convert_alpha(), (330,300))
                         ,
                         Text(
-                            screen,
                             path[19:len(path)-4].replace("_"," "),
                             font75,
                             BLACK,

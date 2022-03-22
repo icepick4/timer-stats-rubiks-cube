@@ -1,7 +1,12 @@
 """class text"""
+import pygame
+
+pygame.init()
+window_size = pygame.display.get_desktop_sizes()[0]
+screen = pygame.display.set_mode(window_size)
 class Text:
     """init a button"""
-    def __init__(self, screen, text, font, color, pos):
+    def __init__(self, text, font, color, pos):
         self.screen = screen
         self.text = text
         self.font = font
@@ -12,7 +17,7 @@ class Text:
 
     def display(self):
         """displaying the text"""
-        self.screen.blit(self.surface,self.rect)
+        screen.blit(self.surface,self.rect)
 
     def get_text(self):
         """get the text content"""
