@@ -1,5 +1,6 @@
-
+"""class text"""
 class Text:
+    """init a button"""
     def __init__(self, screen, text, font, color, pos):
         self.screen = screen
         self.text = text
@@ -10,4 +11,9 @@ class Text:
         self.rect = self.surface.get_rect(topleft=self.pos)
 
     def display(self):
+        """displaying the text"""
         self.screen.blit(self.surface,self.rect)
+
+    def get_text(self):
+        """get the text content"""
+        return self.text

@@ -1,37 +1,34 @@
-from functions import getPosMouse
+"""Import modules"""
+from functions import get_pos_mouse
 from variables import *
 from stats import *
 from timer import *
 
-try:
-    import pygame
-    from pygame.locals import *
-except:
-    print("Vous n'avez pas téléchargé le module pygame ! \n Téléchargez le avec la commande ci-contre : pip install pygame")
 
-def mainMenu(): 
+def main_menu():
+    """main menu"""
     playing = True
     while playing:
         screen.fill((255,255,255))
         #pos mouse
-        posX, posY = getPosMouse()
-        hover(posX, posY)
+        pos_x, pos_y = get_pos_mouse()
+        hover(pos_x, pos_y)
 
         for event in pygame.event.get():
             if event.type == QUIT:
                 playing = False
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 :
-                if endButton.checkMouse(posX, posY):
+            elif event.type == MOUSEBUTTONDOWN and event.button == 1 :
+                if end_button.check_mouse(pos_x, pos_y):
                     playing = False
-                elif statsButton.checkMouse(posX, posY):
+                elif stats_button.check_mouse(pos_x, pos_y):
                     playing = stats(True)
-                elif timerButton.checkMouse(posX, posY):
+                elif timer_button.check_mouse(pos_x, pos_y):
                     playing = timer(True)
                     with open("data.json", "w", encoding="utf-8") as file:
                         json.dump(data, file, indent=4)
-        statsButton.display()
-        timerButton.display()
-        endButton.display()
-        screen.blit(menuImage, (width / 2 - 300 / 2, 100))
+        stats_button.display()
+        timer_button.display()
+        end_button.display()
+        screen.blit(menu_image, (width / 2 - 300 / 2, 100))
         pygame.display.flip()
     pygame.quit()

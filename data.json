@@ -10,10 +10,5 @@
     "mirror 4x4": [],
     "mirror 5x5": [],
     "pyraminx": [],
-    "skewb": [
-        {
-            "time": "1.21",
-            "date": "22-03-2022"
-        }
-    ]
+    "skewb": []
 }
