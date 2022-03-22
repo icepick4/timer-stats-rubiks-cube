@@ -1,27 +1,29 @@
+"""Modules"""
 import pygame
+import variables
+
 class Button:
-    def __init__(self, screen, text, font, bgColor, color, pos):
+    """INIT A BUTTON"""
+    def __init__(self, text, font, color, pos):
         #text init
         self.font = font
-        self.fontSurface = font.render(text, True, color)
-        self.fontRect = self.fontSurface.get_rect(topleft = pos)
-
+        self.font_rect = font.render(text, True, color).get_rect(topleft = pos)
         #button init
-        self.buttonSurface = pygame.Surface((self.fontRect.w * 1.2, self.fontRect.h * 1.2))
-        self.buttonRect = self.buttonSurface.get_rect(topleft = (self.fontRect.left - self.fontRect.w * 0.1, self.fontRect.top - self.fontRect.h * 0.05))
-
-        self.pos = pos
-        self.screen = screen
-        self.bgColor = bgColor
+        self.button_surface = pygame.Surface((self.font_rect.w * 1.2, self.font_rect.h * 1.2))
+        self.button_rect = self.button_surface.get_rect(
+                                                topleft = (
+                                                    self.font_rect.left - self.font_rect.w * 0.1,
+                                                    self.font_rect.top - self.font_rect.h * 0.15)
+                                                )
         self.color = color
         self.text = text
+    def display(self):
+        """DISPLAY THE BUTTON"""
+        pygame.draw.rect(variables.screen, variables.BLACK, self.button_rect, 3, border_radius = 20)
+        variables.screen.blit(self.font.render(self.text, True, self.color),self.font_rect)
 
-    def display(self):             
-        pygame.draw.rect(self.screen, self.bgColor, self.buttonRect)
-        self.fontSurface = self.font.render(self.text, True, self.color)
-        self.screen.blit(self.fontSurface,self.fontRect)
-
-    def checkMouse(self, posX, posY):
-        return self.buttonRect.left < posX < self.buttonRect.right and self.buttonRect.top < posY < self.buttonRect.bottom
-
-    
+    def check_mouse(self, pos_x, pos_y):
+        """RETURN TRUE IS MOUSE IN BUTTON, ELSE RETURN FALSE"""
+        width_restriction = self.button_rect.left < pos_x < self.button_rect.right
+        height_restriction = self.button_rect.top < pos_y < self.button_rect.bottom
+        return width_restriction and height_restriction
