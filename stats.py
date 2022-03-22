@@ -21,7 +21,7 @@ from functions import (
                     to_minutes
 )
 from variables import (
-                Text, 
+                Text,
                 font75,
                 font200,
                 width,
