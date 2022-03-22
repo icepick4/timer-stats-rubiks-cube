@@ -29,7 +29,7 @@ def create_triangle_left(timer):
                                 [(20, height / 2),
                                 (100, height / 2.2),
                                 (100, height / 1.8)]
-                                )
+                            )
     else:
         pygame.draw.polygon(
                                 screen,
@@ -37,7 +37,53 @@ def create_triangle_left(timer):
                                 [(20, height / 2),
                                 (100, height / 2.2),
                                 (100, height / 1.8)]
-                                )
+                            )
+
+def create_triangle_mid_left(timer):
+    """draw top arrow"""
+    if time() - timer > 0.1:
+        pygame.draw.polygon(
+                                screen,
+                                BLACK,
+                                [(width / 2 - 300,
+                                height / 1.2),
+                                (width / 2 - 200,
+                                height / 1.3),
+                                (width / 2 - 200, height / 1.1)]
+                            )
+    else:
+        pygame.draw.polygon(
+                                screen,
+                                RED,
+                                [(width / 2 - 300,
+                                height / 1.2),
+                                (width / 2 - 200,
+                                height / 1.3),
+                                (width / 2 - 200, height / 1.1)]
+                            )
+
+def create_triangle_mid_right(timer):
+    """draw top arrow"""
+    if time() - timer > 0.1:
+        pygame.draw.polygon(
+                                screen,
+                                BLACK,
+                                [(width / 2 + 300,
+                                height / 1.2),
+                                (width / 2 + 200,
+                                height / 1.3),
+                                (width / 2 + 200, height / 1.1)]
+                            )
+    else:
+        pygame.draw.polygon(
+                                screen,
+                                RED,
+                                [(width / 2 + 300,
+                                height / 1.2),
+                                (width / 2 + 200,
+                                height / 1.3),
+                                (width / 2 + 200, height / 1.1)]
+                            )
 
 def create_triangle_right(timer):
     """draw top arrow"""
@@ -48,7 +94,7 @@ def create_triangle_right(timer):
                             [(width - 20, height / 2),
                             (width - 100, height / 2.2),
                             (width - 100, height / 1.8)]
-                            )
+                        )
     else:
         pygame.draw.polygon(
                             screen,
@@ -56,7 +102,7 @@ def create_triangle_right(timer):
                             [(width - 20, height / 2),
                             (width - 100, height / 2.2),
                             (width - 100, height / 1.8)]
-                            )
+                        )
 
 def create_triangle_up(timer):
     """draw top arrow"""
@@ -67,7 +113,7 @@ def create_triangle_up(timer):
                                 [(width / 2, 20),
                                 (width / 2 + width * 0.03, 100),
                                 (width / 2 - width * 0.03, 100)]
-                                )
+                            )
     else:
         pygame.draw.polygon(
                                 screen,
@@ -75,7 +121,7 @@ def create_triangle_up(timer):
                                 [(width / 2, 20),
                                 (width / 2 + width * 0.03, 100),
                                 (width / 2 - width * 0.03, 100)]
-                                )
+                            )
 
 def create_triangle_down(timer):
     """draw top arrow"""

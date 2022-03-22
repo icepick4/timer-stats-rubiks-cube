@@ -4,8 +4,8 @@ from functions import (
                     to_minutes,
                     get_pos_mouse,
                     hover,
-                    create_triangle_right,
-                    create_triangle_left,
+                    create_triangle_mid_right,
+                    create_triangle_mid_left,
                     reset_arrow_left,
                     reset_arrow_right
 )
@@ -77,12 +77,13 @@ def set_chrono(in_chrono, holding, start_holding, chrono):
             text = font300.render(f"{chrono}", True, BLACK)
     return text
 
-def blits_timer(selected_cube):
+def blits_timer(selected_cube, last_chronos):
     """blit on timer page"""
     exit_button.display()
     list_of_cubes[selected_cube][1].display()
     screen.blit(list_of_cubes[selected_cube][0], cubes_rect)
-    remove_button.display()
+    if len(last_chronos) > 0:
+        remove_button.display()
 
 def remove_last(list_of_data, index):
     """remove last time"""
@@ -147,8 +148,8 @@ def timer(looping):
         pos_x, pos_y = get_pos_mouse()
         #hover button
         hover(pos_x, pos_y)
-        create_triangle_right(timer_arrows["timeArrowRight"])
-        create_triangle_left(timer_arrows["timeArrowLeft"])
+        create_triangle_mid_right(timer_arrows["timeArrowRight"])
+        create_triangle_mid_left(timer_arrows["timeArrowLeft"])
         for event in pygame.event.get():
             if event.type == 256:
                 looping = False
@@ -195,7 +196,7 @@ def timer(looping):
         #update the last score
         #####DISPLAYS#####
         display_live_stats(last_chronos, last_chrono, current_cube)
-        blits_timer(dico["selected_cube"])
+        blits_timer(dico["selected_cube"], last_chronos[current_cube])
         text = set_chrono(dico["in_chrono"],
                                 dico["holding"],
                                 dico["start_holding"],

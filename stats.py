@@ -47,7 +47,7 @@ def fill_dicos(dico, dico_bool, datas, current_cube):
             date_text = Text(
                             score['date'].replace("-", "/"),
                             font75, BLACK,
-                            (width - 225, height - 100)
+                            (width - width / 7, height - 100)
                             )
             try:
                 if dico["list_of_dates"][-1].text != score['date'].replace("-", "/"):
