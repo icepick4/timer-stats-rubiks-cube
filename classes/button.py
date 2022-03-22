@@ -1,6 +1,7 @@
 """Modules"""
 import pygame
 import variables
+
 class Button:
     """INIT A BUTTON"""
     def __init__(self, text, font, color, pos):

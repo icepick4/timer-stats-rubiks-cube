@@ -1,7 +1,6 @@
-from variables import *
 from functions import getPosMouse
-from .stats import stats
-from .timer import timer
+from .stats import *
+from .timer import *
 
 try:
     import pygame
@@ -12,26 +11,10 @@ except:
 def mainMenu(): 
     playing = True
     while playing:
+        screen.fill((255,255,255))
         #pos mouse
         posX, posY = getPosMouse()
-
-        if endButton.checkMouse(posX, posY):
-            endButton.color = GREENHOVER
-        else:
-            endButton.bgColor = BLACK
-            endButton.color = RED
-
-        if statsButton.checkMouse(posX, posY):
-            statsButton.color = GREENHOVER
-        else:
-            statsButton.bgColor = BLACK
-            statsButton.color = RED
-
-        if timerButton.checkMouse(posX, posY):
-            timerButton.color = GREENHOVER
-        else:
-            timerButton.bgColor = BLACK
-            timerButton.color = RED
+        hover(posX, posY)
 
         for event in pygame.event.get():
             if event.type == QUIT:

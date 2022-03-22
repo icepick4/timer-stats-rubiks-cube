@@ -161,7 +161,6 @@ def timer(playing):
                 chronoText = font300.render("{0}".format(chrono), True, BLACK)  
         screen.blit(chronoText, chronoRect)
         pygame.display.flip()
-    screen.fill((255,255,255))
     with open("data.json", "w") as f:
         json.dump(data, f, indent=4)
     return True
