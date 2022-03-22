@@ -1,4 +1,5 @@
 from functions import getPosMouse
+from variables import *
 from stats import *
 from timer import *
 

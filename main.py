@@ -1,5 +1,5 @@
 """IMPORT THE MENU"""
-from pages.menu import mainMenu
+from menu import mainMenu
 
 def main():
     """Launching the game"""

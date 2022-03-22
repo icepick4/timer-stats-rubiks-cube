@@ -1,9 +1,7 @@
 """MODULES"""
-from time import time
 import pygame
-from functions import createTriangleDown, createTriangleLeft, createTriangleRight, createTriangleUp, giveStats, getPosMouse, fillDicos, resetArrow, resetVar, hover
+from functions import *
 from variables import *
-
 
 def stats(playing):
     """STATS PAGE"""
@@ -23,14 +21,14 @@ def stats(playing):
         "overAll" : False,
         "switched" : True
     }
-    listOfCubes = initCubesStats(listOfCubes)
+    cubes = initCubesStats(listOfCubes)
     while playing:
-        currentCube = listOfCubes[dicoOfData["selectedCube"]][1]
+        currentCube = cubes[dicoOfData["selectedCube"]][1]
         screen.fill((255,255,255))
         #display selected stats
         if dicoBool["switched"]:
             dicoOfData = fillDicos(dicoOfData, dicoBool, data, currentCube)
-        #pos mouse  
+        #pos mouse
         posX, posY = getPosMouse()
         #####HOVER#####
         hover(posX, posY)
@@ -82,13 +80,13 @@ def stats(playing):
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
                 dicoOfData["selectedCube"],timerArrows["timeArrowLeft"] = resetArrow(
                                                 dicoOfData["selectedCube"],
-                                                len(listOfCubes)
+                                                len(cubes)
                                                 )
                 dicoOfData["listOfDates"],dicoOfData["listOfScores"],dicoBool["switched"]=resetVar()
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
                 dicoOfData["selectedCube"],timerArrows["timeArrowRight"] = resetArrow(
                                             dicoOfData["selectedCube"],
-                                            len(listOfCubes)
+                                            len(cubes)
                                             )
                 dicoOfData["listOfDates"],dicoOfData["listOfScores"],dicoBool["switched"]=resetVar()
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
@@ -101,8 +99,8 @@ def stats(playing):
                                             dicoOfData["selectedDate"],
                                             len(dicoOfData["listOfDates"])
                                             )
-        listOfCubes[dicoOfData["selectedCube"]][1].display()
-        screen.blit(listOfCubes[dicoOfData["selectedCube"]][0], (width - 150, 75))
+        cubes[dicoOfData["selectedCube"]][1].display()
+        screen.blit(cubes[dicoOfData["selectedCube"]][0], (width - 150, 75))
         overAllStatsButton.display()
         exitButton.display()
         pygame.display.flip()

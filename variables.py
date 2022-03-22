@@ -17,6 +17,7 @@ GREEN = (50,255,50)
 GREENHOVER = (28, 184, 48)
 
 pygame.init()
+
 #setting window
 windowSize = pygame.display.get_desktop_sizes()[0]
 screen = pygame.display.set_mode(windowSize)
