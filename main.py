@@ -1,6 +1,8 @@
-from pages.menu import mainMenu
+"""IMPORT THE MENU"""
+from menu import main_menu
 
 def main():
-    mainMenu()
+    """Launching the game"""
+    main_menu()
 if __name__ == "__main__":
     main()
