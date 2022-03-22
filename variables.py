@@ -29,6 +29,7 @@ date = datetime.today().strftime('%d-%m-%Y')
 PLAYING = True
 #####FONTS#####
 FONTPATH = "assets/font/aAkhirTahun.ttf"
+pygame.font.init()
 font50 = pygame.font.Font(FONTPATH, 50)
 font75 = pygame.font.Font(FONTPATH, 75)
 font100 = pygame.font.Font(FONTPATH, 100)

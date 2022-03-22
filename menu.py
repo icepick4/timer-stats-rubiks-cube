@@ -40,4 +40,4 @@ def main_menu():
         end_button.display()
         screen.blit(menu_image, (width / 2 - 300 / 2, 100))
         pygame.display.flip()
-    pygame.quit()
+    pygame.display.quit()
