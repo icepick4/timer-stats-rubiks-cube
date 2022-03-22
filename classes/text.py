@@ -1,6 +1,5 @@
 """class text"""
 import pygame
-
 pygame.init()
 window_size = pygame.display.get_desktop_sizes()[0]
 screen = pygame.display.set_mode(window_size)

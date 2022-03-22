@@ -1,5 +1,14 @@
 """MODULES"""
 from time import time
+from pygame.locals import (
+                            QUIT,
+                            KEYDOWN,
+                            KEYUP,
+                            K_SPACE,
+                            K_RIGHT,
+                            K_LEFT,
+                            MOUSEBUTTONDOWN
+)
 from functions import (
                     to_minutes,
                     get_pos_mouse,
@@ -20,22 +29,12 @@ from variables import (
                 RED,
                 GREEN,
                 exit_button,
-                Button,
                 pygame,
                 remove_button,
                 cubes_rect,
                 date,
                 chrono_rect
 
-)
-from pygame.locals import (
-                            QUIT,
-                            KEYDOWN,
-                            KEYUP,
-                            K_SPACE,
-                            K_RIGHT,
-                            K_LEFT,
-                            MOUSEBUTTONDOWN
 )
 
 def display_live_stats(chronos, last_chrono, cube):
@@ -120,7 +119,7 @@ def update_live_chrono(in_chrono, start_time, cube):
         chrono = str(float(last_chrono))
     return chrono, last_chrono
 
-def timer(playing):
+def timer(looping):
     """TIMER PAGE"""
     screen.fill((255,255,255))
     start_time = time()
@@ -149,7 +148,7 @@ def timer(playing):
     "pyraminx": [],
     "skewb": []
 }
-    while playing:
+    while looping:
         #the current cube
         current_cube = list_of_cubes[dico["selected_cube"]][1].text
         #pos mouse
@@ -161,11 +160,11 @@ def timer(playing):
         create_triangle_left(timer_arrows["timeArrowLeft"])
         for event in pygame.event.get():
             if event.type == QUIT:
-                playing = False
+                looping = False
             elif event.type == MOUSEBUTTONDOWN and event.button == 1 :
                 #checking for button pressed
                 if exit_button.check_mouse(pos_x, pos_y):
-                    playing = False
+                    looping = False
                 if remove_button.check_mouse(pos_x, pos_y):
                     last_chronos = remove_last(last_chronos, current_cube)
                     remove_last(data, current_cube)

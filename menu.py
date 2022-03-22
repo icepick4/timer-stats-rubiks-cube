@@ -1,4 +1,5 @@
 """Import modules"""
+import pygame.locals as l
 from functions import get_pos_mouse, hover
 from variables import (
                     screen,
@@ -11,10 +12,7 @@ from variables import (
                     width,
                     pygame,
 )
-from pygame.locals import (
-                            QUIT,
-                            MOUSEBUTTONDOWN
-)
+
 from stats import stats
 from timer import timer
 
@@ -27,11 +25,10 @@ def main_menu():
         #pos mouse
         pos_x, pos_y = get_pos_mouse()
         hover(pos_x, pos_y)
-
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == pygame.QUIT:
                 playing = False
-            elif event.type == MOUSEBUTTONDOWN and event.button == 1 :
+            elif event.type == l.MOUSEBUTTONDOWN and event.button == 1 :
                 if end_button.check_mouse(pos_x, pos_y):
                     playing = False
                 elif stats_button.check_mouse(pos_x, pos_y):

@@ -1,6 +1,15 @@
 """MODULES"""
 from time import time
 import pygame
+from pygame.locals import (
+                            QUIT,
+                            KEYDOWN,
+                            K_UP,
+                            K_DOWN,
+                            K_RIGHT,
+                            K_LEFT,
+                            MOUSEBUTTONDOWN
+)
 from functions import (
                     create_triangle_down,
                     create_triangle_left,
@@ -26,15 +35,6 @@ from variables import (
                 GREEN,
                 exit_button,
                 over_all_stats_button,
-)
-from pygame.locals import (
-                            QUIT,
-                            KEYDOWN,
-                            K_UP,
-                            K_DOWN,
-                            K_RIGHT,
-                            K_LEFT,
-                            MOUSEBUTTONDOWN
 )
 def over_all_stats(over_all,state):
     """changing state of over_all_stats_button"""
