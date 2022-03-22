@@ -27,6 +27,8 @@ def mainMenu():
                     playing = stats(True)
                 elif timerButton.checkMouse(posX, posY):
                     playing = timer(True)
+                    with open("data.json", "w", encoding="utf-8") as file:
+                        json.dump(data, file, indent=4)
         statsButton.display()
         timerButton.display()
         endButton.display()

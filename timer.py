@@ -1,23 +1,108 @@
 """MODULES"""
 from time import time
-import json
 import pygame
-# from pygame.locals import *
-from functions import toMinutes, getPosMouse
-from variables import screen,font200, listOfCubes, exitButton, removeButton, width, height
+from pygame.locals import *
+from functions import toMinutes,getPosMouse,hover,createTriangleRight,createTriangleLeft,resetArrowLeft, resetArrowRight
+# from variables import screen,font200, listOfCubes, exitButton, removeButton, width, data, font75, font300, cubesRect, date, chronoRect, BLACK, RED, GREEN
+from variables import *
 
+def displayLiveStats(chronos, lastChrono, cube):
+    """display the stats in live on the right of the timer page"""
+    if lastChrono != 0:
+        if lastChrono > 60:
+            lastChrono = toMinutes(lastChrono)
+        last = font75.render(f"Last : {lastChrono}", True, BLACK)
+        screen.blit(last, (width - last.get_width() - 20, 10))
+    #update the current
+    if len(chronos[cube]) > 5:
+        ao5 = round(
+                    sum(
+                        chronos[cube][len(chronos[cube]) - 5: len(chronos[cube])]
+                        )/ 5,
+                    2
+                    )
+        if ao5 > 60:
+            ao5 = toMinutes(ao5)
+        ao5 = font75.render(f"ao5 : {ao5}", True, BLACK)
+        screen.blit(ao5, (width / 1.3, 100))
+    #update the current ao12
+    if len(chronos) > 12:
+        ao12 = round(sum(chronos[cube][len(chronos[cube]) - 12: len(chronos[cube])])/ 12, 2)
+        if ao12 > 60:
+            ao12 = toMinutes(ao12)
+        ao12 = font75.render(f"ao12 : {ao12}", True, BLACK)
+        screen.blit(ao12, (width / 1.3, 200))
 
+def setChrono(inChrono, holding, startHolding, chrono):
+    """set the chrono to display it right after"""
+    if inChrono:
+        screen.fill((255,255,255))
+        if float(chrono) > 60:
+            chronoMinutes = toMinutes(chrono)
+            text = font300.render(f"{chronoMinutes}", True, BLACK)
+        else:
+            text = font300.render(f"{chrono}", True, BLACK)
+    elif holding and time() - startHolding < 0.5:
+        text = font300.render(f"{chrono}", True, RED)
+    elif holding and time() - startHolding > 0.5:
+        screen.fill((255,255,255))
+        text = font300.render("0.0", True, GREEN)
+    else:
+        if float(chrono) > 60:
+            chronoMinutes = toMinutes(chrono)
+            text = font300.render(f"{chronoMinutes}", True, BLACK)
+        else:
+            text = font300.render(f"{chrono}", True, BLACK)
+    return text
+
+def blitsTimer(selectedCube):
+    """blit on timer page"""
+    exitButton.display()
+    listOfCubes[selectedCube][1].display()
+    screen.blit(listOfCubes[selectedCube][0], cubesRect)
+    removeButton.display()
+
+def removeLast(list, index):
+    """remove last time"""
+    if len(list[index]) > 0:
+        list[index].pop()
+    return list
+
+def updateChrono(inChrono, currentCube, chrono, lastChronos):
+    """update the chrono when finished"""
+    if inChrono:
+        inChrono = False
+        data[currentCube].append({"time": chrono, "date":date})
+        lastChronos[currentCube].append(float(chrono))
+    return inChrono, lastChronos
+
+def updateLiveChrono(inChrono, startTime, cube):
+    """update the chrono in live and last chrono"""
+    try:
+        lastChrono = cube[-1]
+    except IndexError:
+        lastChrono = 0.0
+    if inChrono:
+        chrono = str(round(time() - startTime, 2))
+    else:
+        chrono = str(float(lastChrono))
+    return chrono, lastChrono
 
 def timer(playing):
     """TIMER PAGE"""
     screen.fill((255,255,255))
-    selectedCube = 0
     startTime = time()
-    timeArrowLeft = time() - 0.1
-    timeArrowRight = time() - 0.1
-    inChrono = False
-    holding = False
-    chrono = "0.0"
+    timerArrows = {
+        "timeArrowLeft":time() - 0.1,
+        "timeArrowRight" : time() - 0.1,
+    }
+    dico = {
+        "inChrono":False,
+        "holding":False,
+        "chrono": "0.0",
+        "selectedCube": 0,
+        "startHolding": 0
+    }
     lastChronos = {
     "2x2": [],
     "3x3": [],
@@ -32,36 +117,16 @@ def timer(playing):
     "pyraminx": [],
     "skewb": []
 }
-    chronoText = font200.render("{0}".format(0.00), True, BLACK)
     while playing:
         #the current cube
-        currentCube = listOfCubes[selectedCube][1].text
+        currentCube = listOfCubes[dico["selectedCube"]][1].text
         #pos mouse
         screen.fill((255,255,255))
         posX, posY = getPosMouse()
-
         #hover button
-        if exitButton.checkMouse(posX, posY):
-            exitButton.color = GREENHOVER
-        else:
-            exitButton.bgColor = BLACK
-            exitButton.color = RED
-        if removeButton.checkMouse(posX, posY):
-            removeButton.color = GREENHOVER
-        else:
-            removeButton.bgColor = BLACK
-            removeButton.color = RED
-
-        #statement of pushing arrow or not 
-        if time() - timeArrowLeft > 0.1:
-            pygame.draw.polygon(screen, BLACK, [(width / 2 - 300, height / 1.2), (width / 2 - 200, height / 1.3), (width / 2 - 200, height / 1.1)])
-        else:
-            pygame.draw.polygon(screen, RED, [(width / 2 - 300, height / 1.2), (width / 2 - 200, height / 1.3), (width / 2 - 200, height / 1.1)])
-        if time() - timeArrowRight > 0.1:
-            pygame.draw.polygon(screen, BLACK, [(width / 2 + 300, height / 1.2), (width / 2 + 200, height / 1.3), (width / 2 + 200, height / 1.1)])
-        else:
-            pygame.draw.polygon(screen, RED, [(width / 2 + 300, height / 1.2), (width / 2 + 200, height / 1.3), (width / 2 + 200, height / 1.1)])
-
+        hover(posX, posY)
+        createTriangleRight(timerArrows["timeArrowRight"])
+        createTriangleLeft(timerArrows["timeArrowLeft"])
         for event in pygame.event.get():
             if event.type == QUIT:
                 playing = False
@@ -70,97 +135,50 @@ def timer(playing):
                 if exitButton.checkMouse(posX, posY):
                     playing = False
                 if removeButton.checkMouse(posX, posY):
-                    if len(lastChronos[currentCube]) > 0:
-                        lastChronos[currentCube].pop()
-                    try:
-                        data[currentCube].pop()
-                    except:
-                        #empty list
-                        pass
+                    lastChronos = removeLast(lastChronos, currentCube)
+                    removeLast(data, currentCube)
             #choose the cube you want
-            elif event.type == KEYDOWN:
-                if event.key == K_LEFT:
-                    timeArrowLeft = time()
-                    if selectedCube-1 > - len(listOfCubes):
-                        selectedCube -=1
-                    else:
-                        selectedCube = 0
-                elif event.key == K_RIGHT:
-                    timeArrowRight = time()
-                    if selectedCube+1 < len(listOfCubes):
-                        selectedCube +=1
-                    else:
-                        selectedCube = 0
-                elif event.key == K_SPACE:
-                    if inChrono:
-                        inChrono = False
-                        data[currentCube].append({"time": chrono, "date":date})
-                        lastChronos[currentCube].append(float(chrono))
-                    startHolding = time()
-                    holding = True      
-            elif event.type == KEYUP:
-                if event.key == K_SPACE:
-                    #chekc holding enought time
-                    if time() - startHolding > 0.5:
-                        inChrono = True
-                        startTime = time()
-                    else:
-                        holding = False
+            elif event.type == KEYDOWN and event.key == K_LEFT:
+                dico["selectedCube"], timerArrows["timeArrowLeft"] = resetArrowLeft(
+                                                                        dico["selectedCube"],
+                                                                        len(listOfCubes)
+                                                                        )
+            elif event.type == KEYDOWN and event.key == K_RIGHT:
+                dico["selectedCube"], timerArrows["timeArrowRight"] = resetArrowRight(
+                                                                        dico["selectedCube"],
+                                                                        len(listOfCubes)
+                                                                        )
+            elif event.type == KEYDOWN and event.key == K_SPACE:
+                dico["inChrono"], lastChronos = updateChrono(
+                                                            dico["inChrono"],
+                                                            currentCube,
+                                                            dico["chrono"],
+                                                            lastChronos
+                                                            )
+                dico["startHolding"] = time()
+                dico["holding"] = True
+            elif event.type == KEYUP and event.key == K_SPACE:
+                #chekc holding enought time
+                if time() - dico["startHolding"] > 0.5:
+                    dico["inChrono"] = True
+                    startTime = time()
+                else:
+                    dico["holding"] = False
         #update dict of lastchronos and chrono
-        try:
-            lastChrono = lastChronos[currentCube][-1]
-        except:
-            lastChrono = 0.0
-        if inChrono:
-            chrono = str(round(time() - startTime, 2))
-        else:
-            chrono = str(float(lastChrono))
+        dico["chrono"], lastChrono = updateLiveChrono(
+                                                    dico["inChrono"],
+                                                    startTime,
+                                                    lastChronos[currentCube]
+                                                    )
         #update the last score
-        if lastChrono != 0:
-            if lastChrono > 60:
-                lastChrono = toMinutes(lastChrono)
-            last = font75.render("Last : {0}".format(lastChrono), True, BLACK)
-            screen.blit(last, (width - last.get_width() - 20, 10))
-        #update the current ao5
-        if len(lastChronos[currentCube]) > 5:
-            avg5 = round(sum(lastChronos[currentCube][len(lastChronos[currentCube]) - 5: len(lastChronos[currentCube])])/ 5, 2)
-            if avg5 > 60:
-                avg5 = toMinutes(avg5)
-            ao5 = font75.render("ao5 : {0}".format(avg5), True, BLACK)
-            screen.blit(ao5, (width / 1.3, 100))
-        #update the current ao12
-        if len(lastChronos) > 12:
-            avg12 = round(sum(lastChronos[currentCube][len(lastChronos[currentCube]) - 12: len(lastChronos[currentCube])])/ 12, 2)
-            if avg12 > 60:
-                avg12 = toMinutes(avg12)
-            ao12 = font75.render("ao12 : {0}".format(avg12), True, BLACK)
-            screen.blit(ao12, (width / 1.3, 200))
-
         #####DISPLAYS#####
-        exitButton.display()
-        listOfCubes[selectedCube][1].display()
-        screen.blit(listOfCubes[selectedCube][0], cubesRect)
-        removeButton.display()
-        if inChrono:    
-            screen.fill((255,255,255))
-            if float(chrono) > 60:
-                chronoMinutes = toMinutes(chrono)       
-                chronoText = font300.render("{0}".format(chronoMinutes), True, BLACK)
-            else:
-                chronoText = font300.render("{0}".format(chrono), True, BLACK)  
-        elif holding and time() - startHolding < 0.5:
-            chronoText = font300.render("{0}".format(chrono), True, RED)  
-        elif holding and time() - startHolding > 0.5:
-            screen.fill((255,255,255)) 
-            chronoText = font300.render("0.0", True, GREEN)  
-        else:
-            if float(chrono) > 60:
-                chronoMinutes = toMinutes(chrono)
-                chronoText = font300.render("{0}".format(chronoMinutes), True, BLACK)
-            else:
-                chronoText = font300.render("{0}".format(chrono), True, BLACK)  
-        screen.blit(chronoText, chronoRect)
+        displayLiveStats(lastChronos, lastChrono, currentCube)
+        blitsTimer(dico["selectedCube"])
+        text = setChrono(dico["inChrono"],
+                                dico["holding"],
+                                dico["startHolding"],
+                                dico["chrono"]
+                                )
+        screen.blit(text, chronoRect)
         pygame.display.flip()
-    with open("data.json", "w") as f:
-        json.dump(data, f, indent=4)
     return True
