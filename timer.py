@@ -1,14 +1,5 @@
 """MODULES"""
 from time import time
-from pygame.locals import (
-                            QUIT,
-                            KEYDOWN,
-                            KEYUP,
-                            K_SPACE,
-                            K_RIGHT,
-                            K_LEFT,
-                            MOUSEBUTTONDOWN
-)
 from functions import (
                     to_minutes,
                     get_pos_mouse,
@@ -159,9 +150,9 @@ def timer(looping):
         create_triangle_right(timer_arrows["timeArrowRight"])
         create_triangle_left(timer_arrows["timeArrowLeft"])
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == 256:
                 looping = False
-            elif event.type == MOUSEBUTTONDOWN and event.button == 1 :
+            elif event.type == 1025 and event.button == 1 :
                 #checking for button pressed
                 if exit_button.check_mouse(pos_x, pos_y):
                     looping = False
@@ -169,17 +160,17 @@ def timer(looping):
                     last_chronos = remove_last(last_chronos, current_cube)
                     remove_last(data, current_cube)
             #choose the cube you want
-            elif event.type == KEYDOWN and event.key == K_LEFT:
+            elif event.type == 768 and event.key == 1073741904:
                 dico["selected_cube"], timer_arrows["timeArrowLeft"] = reset_arrow_left(
                                                                         dico["selected_cube"],
                                                                         len(list_of_cubes)
                                                                         )
-            elif event.type == KEYDOWN and event.key == K_RIGHT:
+            elif event.type == 768 and event.key == 1073741903:
                 dico["selected_cube"], timer_arrows["timeArrowRight"] = reset_arrow_right(
                                                                         dico["selected_cube"],
                                                                         len(list_of_cubes)
                                                                         )
-            elif event.type == KEYDOWN and event.key == K_SPACE:
+            elif event.type == 768 and event.key == 32:
                 dico["in_chrono"], last_chronos = update_chrono(
                                                             dico["in_chrono"],
                                                             current_cube,
@@ -188,7 +179,7 @@ def timer(looping):
                                                             )
                 dico["start_holding"] = time()
                 dico["holding"] = True
-            elif event.type == KEYUP and event.key == K_SPACE:
+            elif event.type == 769 and event.key == 32:
                 #chekc holding enought time
                 if time() - dico["start_holding"] > 0.5:
                     dico["in_chrono"] = True

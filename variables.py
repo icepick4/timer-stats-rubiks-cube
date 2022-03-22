@@ -11,7 +11,6 @@ except ModuleNotFoundError:
 from classes.button import Button
 from classes.text import Text
 
-
 RED = (255,50,50)
 YELLOW = (255,215,0)
 BLACK = (0,0,0)
@@ -20,8 +19,6 @@ WHITE = (255,255,255)
 GREEN = (50,255,50)
 GREENHOVER = (28, 184, 48)
 
-
-
 #setting window
 window_size = pygame.display.get_desktop_sizes()[0]
 screen = pygame.display.set_mode(window_size)
@@ -29,9 +26,7 @@ width = window_size[0]
 height = window_size[1]
 
 date = datetime.today().strftime('%d-%m-%Y')
-
 PLAYING = True
-
 #####FONTS#####
 FONTPATH = "assets/font/aAkhirTahun.ttf"
 font50 = pygame.font.Font(FONTPATH, 50)
@@ -51,10 +46,8 @@ menu_image = pygame.transform.smoothscale(
     pygame.image.load("assets/image/rubik's_cube.png").convert_alpha(),
     (380,400)
 )
-
 with open("data.json", "r", encoding = "utf-8") as f:
     data = json.load(f)
-
 #####TIMER PAGE#####
 timer_header = Text("SCRAMBLE : ", font75, BLACK, (width / 10 , 20))
 list_of_cubes_paths = glob.glob("assets/image/cubes/*")
@@ -85,7 +78,6 @@ remove_button = Button(
                      (width - width / 3.5, height - 100)
                      )
 LASTCHRONO = 0
-
 #####STATS PAGE#####
 over_all_stats_button = Button(
                             "OVER ALL STATS",
@@ -93,5 +85,4 @@ over_all_stats_button = Button(
                             RED,
                             (width / 30, height - height / 10)
                             )
-
 screen.fill((255,255,255))

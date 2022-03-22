@@ -1,15 +1,6 @@
 """MODULES"""
 from time import time
 import pygame
-from pygame.locals import (
-                            QUIT,
-                            KEYDOWN,
-                            K_UP,
-                            K_DOWN,
-                            K_RIGHT,
-                            K_LEFT,
-                            MOUSEBUTTONDOWN
-)
 from functions import (
                     create_triangle_down,
                     create_triangle_left,
@@ -175,9 +166,9 @@ def stats(playing):
         except ZeroDivisionError:
             Text("No data", font200, BLACK, (width/2, height / 2.5)).display()
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == 256:
                 playing = False
-            elif event.type == MOUSEBUTTONDOWN and event.button == 1 :
+            elif event.type == 1025 and event.button == 1 :
                 if exit_button.check_mouse(pos_x, pos_y):
                     playing = False
                 elif over_all_stats_button.check_mouse(pos_x, pos_y):
@@ -186,24 +177,24 @@ def stats(playing):
                                                             over_all_stats_button.text
                                                             )
                     dico["list_of_dates"],dico["list_of_scores"],dico_bool["switched"]=reset_var()
-            elif event.type == KEYDOWN and event.key == K_LEFT:
+            elif event.type == 768 and event.key == 1073741904:
                 dico["selectedCube"],timer_arrows["timeArrowLeft"] = reset_arrow_left(
                                                 dico["selectedCube"],
                                                 len(cubes)
                                                 )
                 dico["list_of_dates"],dico["list_of_scores"],dico_bool["switched"]=reset_var()
-            elif event.type == KEYDOWN and event.key == K_RIGHT:
+            elif event.type == 768 and event.key == 1073741903:
                 dico["selectedCube"],timer_arrows["timeArrowRight"] = reset_arrow_right(
                                             dico["selectedCube"],
                                             len(cubes)
                                             )
                 dico["list_of_dates"],dico["list_of_scores"],dico_bool["switched"]=reset_var()
-            elif event.type == KEYDOWN and event.key == K_UP:
+            elif event.type == 768 and event.key == 1073741906:
                 dico["selected_date"],timer_arrows["timeArrowUp"] = reset_arrow_left(
                                             dico["selected_date"],
                                             len(dico["list_of_dates"])
                                             )
-            elif event.type == KEYDOWN and event.key == K_DOWN:
+            elif event.type == 768 and event.key == 1073741905:
                 dico["selected_date"],timer_arrows["timeArrowDown"] = reset_arrow_right(
                                             dico["selected_date"],
                                             len(dico["list_of_dates"])
