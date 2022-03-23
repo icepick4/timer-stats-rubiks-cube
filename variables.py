@@ -53,6 +53,7 @@ with open("data.json", "r", encoding = "utf-8") as f:
 timer_header = Text("SCRAMBLE : ", font75, BLACK, (width / 10 , 20))
 list_of_cubes_paths = glob.glob("assets/image/cubes/*")
 list_of_cubes = []
+list_of_little_cubes = []
 for path in list_of_cubes_paths:
     list_of_cubes.append([
                         pygame.transform.smoothscale(
@@ -63,6 +64,17 @@ for path in list_of_cubes_paths:
                             font75,
                             BLACK,
                             (width / 2, height /1.7)
+                            )
+                        ])
+    list_of_little_cubes.append([
+                        pygame.transform.smoothscale(
+                        pygame.image.load(path).convert_alpha(), (150,135))
+                        ,
+                        Text(
+                            path[19:len(path)-4].replace("_"," "),
+                            font75,
+                            BLACK,
+                            (width - width / 15, 10)
                             )
                         ])
 cubes_rect = pygame.Rect((width / 2 - 330 / 2, height / 1.5, 330,300))

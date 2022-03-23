@@ -36,7 +36,7 @@ def display_live_stats(chronos, last_chrono, cube):
         last = font75.render(f"Last : {last_chrono}", True, BLACK)
         screen.blit(last, (width - last.get_width() - 20, 10))
     #update the current ao5
-    if len(chronos[cube]) > 5:
+    if len(chronos[cube]) > 4:
         ao5 = round(
                     sum(
                         chronos[cube][len(chronos[cube]) - 5: len(chronos[cube])]
@@ -48,7 +48,7 @@ def display_live_stats(chronos, last_chrono, cube):
         ao5 = font75.render(f"ao5 : {ao5}", True, BLACK)
         screen.blit(ao5, (width / 1.3, 100))
     #update the current ao12
-    if len(chronos) > 12:
+    if len(chronos[cube]) > 11:
         ao12 = round(sum(chronos[cube][len(chronos[cube]) - 12: len(chronos[cube])])/ 12, 2)
         if ao12 > 60:
             ao12 = to_minutes(ao12)
@@ -139,7 +139,7 @@ def timer(looping):
     "mirror 5x5": [],
     "pyraminx": [],
     "skewb": []
-}
+    }
     while looping:
         #the current cube
         current_cube = list_of_cubes[dico["selected_cube"]][1].text

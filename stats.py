@@ -18,7 +18,6 @@ from variables import (
                 width,
                 height,
                 BLACK,
-                list_of_cubes,
                 screen,
                 data,
                 font125,
@@ -26,6 +25,7 @@ from variables import (
                 GREEN,
                 exit_button,
                 over_all_stats_button,
+                list_of_little_cubes
 )
 def over_all_stats(over_all,state):
     """changing state of over_all_stats_button text"""
@@ -93,12 +93,12 @@ def give_stats(list_of_scores, list_of_dates, selected_date, over_all):
 def init_cube_stats(cubes):
     """init pos of cubes in stats page"""
     for cube in cubes:
-        cube[1].rect, cube[0] = cube[1].surface.get_rect(
-                                                        topright=(
-                                                                width -10,
-                                                                10
-                                                                )
-                                                ), pygame.transform.smoothscale(cube[0], (150,135))
+        cube[1].rect = cube[1].surface.get_rect(
+                                            topright=(
+                                                    width -10,
+                                                    10
+                                                    )
+                                            )
     return cubes
 
 def create_arrows(over_all, state_date, timer_arrows):
@@ -127,7 +127,7 @@ def stats(playing):
         "over_all" : False,
         "switched" : True
     }
-    cubes = init_cube_stats(list_of_cubes)
+    cubes = init_cube_stats(list_of_little_cubes)
     while playing:
         current_cube = cubes[dico["selectedCube"]][1]
         screen.fill((255,255,255))
