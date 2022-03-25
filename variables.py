@@ -39,7 +39,7 @@ font300 = pygame.font.Font(FONTPATH, 300)
 font_width = pygame.font.Font(FONTPATH, int(width * 0.025))
 #####MENU PAGE#####
 #bouton pour fermer la fenetre
-end_button = Button("CLOSE", font50, RED,(width - width / 10, 20))
+end_button = Button("CLOSE", font50, RED,(width - width / 7, 35))
 stats_button = Button("STATS", font125, RED,(width / 2 - 400, height / 2 +100))
 timer_button = Button("TIMER", font125, RED, (width/2 +150, height / 2 +100))
 exit_button = Button("EXIT", font50, RED, (20,20))
@@ -61,9 +61,9 @@ for path in list_of_cubes_paths:
                         ,
                         Text(
                             path[19:len(path)-4].replace("_"," "),
-                            font75,
+                            font100,
                             BLACK,
-                            (width / 2, height /1.7)
+                            (width / 2, 50)
                             )
                         ])
     list_of_little_cubes.append([
