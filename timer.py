@@ -196,9 +196,8 @@ def timer(looping):
                                                     )
         #update the last score
         #####DISPLAYS#####
-        if not dico["in_chrono"]:
-            display_live_stats(last_chronos, last_chrono, current_cube)
-            blits_timer(dico["selected_cube"], last_chronos[current_cube])
+        display_live_stats(last_chronos, last_chrono, current_cube)
+        blits_timer(dico["selected_cube"], last_chronos[current_cube])
         text = set_chrono(dico["in_chrono"],
                                 dico["holding"],
                                 dico["start_holding"],
