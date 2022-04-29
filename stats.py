@@ -162,10 +162,12 @@ def stats(playing):
             ).display()
             if not dico_bool["over_all"]:
                 dico["list_of_dates"][dico["selected_date"]].display()
-        except ZeroDivisionError:
+        except (ZeroDivisionError,IndexError):
             #if no data
             Text("No data", font200, BLACK, (width/2, height / 2.5)).display()
         for event in pygame.event.get():
+            scroll_up = event.type == 1025 and event.button == 4
+            scroll_down = event.type == 1026 and event.button == 5
             if event.type == 256:
                 playing = False
             elif event.type == 1025 and event.button == 1 :
@@ -178,23 +180,27 @@ def stats(playing):
                                                             )
                     dico["list_of_dates"],dico["list_of_scores"],dico_bool["switched"]=reset_var()
             elif event.type == 768 and event.key == 1073741904:
+                #left
                 dico["selectedCube"],timer_arrows["timeArrowLeft"] = reset_arrow_left(
                                                 dico["selectedCube"],
                                                 len(cubes)
                                                 )
                 dico["list_of_dates"],dico["list_of_scores"],dico_bool["switched"]=reset_var()
             elif event.type == 768 and event.key == 1073741903:
+                #right
                 dico["selectedCube"],timer_arrows["timeArrowRight"] = reset_arrow_right(
                                             dico["selectedCube"],
                                             len(cubes)
                                             )
                 dico["list_of_dates"],dico["list_of_scores"],dico_bool["switched"]=reset_var()
-            elif event.type == 768 and event.key == 1073741906:
+            elif event.type == 768 and event.key == 1073741906 or scroll_up:
+                #up
                 dico["selected_date"],timer_arrows["timeArrowUp"] = reset_arrow_left(
                                             dico["selected_date"],
                                             len(dico["list_of_dates"])
                                             )
-            elif event.type == 768 and event.key == 1073741905:
+            elif (event.type == 768 and event.key == 1073741905) or scroll_down:
+                #down
                 dico["selected_date"],timer_arrows["timeArrowDown"] = reset_arrow_right(
                                             dico["selected_date"],
                                             len(dico["list_of_dates"])

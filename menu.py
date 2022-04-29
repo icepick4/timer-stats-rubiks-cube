@@ -29,9 +29,9 @@ def main_menu():
                 if end_button.check_mouse(pos_x, pos_y):
                     playing = False
                 elif stats_button.check_mouse(pos_x, pos_y):
-                    playing = stats(True)
+                    stats(True)
                 elif timer_button.check_mouse(pos_x, pos_y):
-                    playing = timer(True)
+                    timer(True)
                     with open("data.json", "w", encoding="utf-8") as file:
                         json.dump(data, file, indent=4)
         stats_button.display()

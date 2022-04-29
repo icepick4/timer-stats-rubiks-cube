@@ -10,7 +10,7 @@ from functions import (
                     reset_arrow_right
 )
 from variables import (
-                font75,
+                font50,
                 font300,
                 width,
                 BLACK,
@@ -29,12 +29,27 @@ from variables import (
 
 def display_live_stats(chronos, last_chrono, cube):
     """display the stats in live on the right of the timer page"""
+    if len(chronos[cube]) > 0:
+        #display the number of chronos
+        text = font50.render(f"Counter : {len(chronos[cube])}", True, BLACK)
+        screen.blit(text, (width - text.get_width() - 10, 10))
+        #update the current average
+        average = round(sum(chronos[cube])/ len(chronos[cube]), 2)
+        if average > 60:
+            average = to_minutes(average)
+        average = font50.render(f"AVG : {average}", True, BLACK)
+        screen.blit(average, (width - average.get_width() - 10, 75))
+    else:
+        text = font50.render("Start playing", True, BLACK)
+        text2 = font50.render("to see live stats", True, BLACK)
+        screen.blit(text, (width - text.get_width() - 10, 10))
+        screen.blit(text2, (width - text2.get_width() - 10, 60))
     #update current lastscore
     if last_chrono != 0:
         if last_chrono > 60:
             last_chrono = to_minutes(last_chrono)
-        last = font75.render(f"Last : {last_chrono}", True, BLACK)
-        screen.blit(last, (width - last.get_width() - 20, 10))
+        last = font50.render(f"Last : {last_chrono}", True, BLACK)
+        screen.blit(last, (width - last.get_width() - 10, 140))
     #update the current ao5
     if len(chronos[cube]) > 4:
         ao5 = round(
@@ -45,15 +60,15 @@ def display_live_stats(chronos, last_chrono, cube):
                     )
         if ao5 > 60:
             ao5 = to_minutes(ao5)
-        ao5 = font75.render(f"ao5 : {ao5}", True, BLACK)
-        screen.blit(ao5, (width / 1.3, 100))
+        ao5 = font50.render(f"ao5 : {ao5}", True, BLACK)
+        screen.blit(ao5, (width - ao5.get_width() - 10, 205))
     #update the current ao12
     if len(chronos[cube]) > 11:
         ao12 = round(sum(chronos[cube][len(chronos[cube]) - 12: len(chronos[cube])])/ 12, 2)
         if ao12 > 60:
             ao12 = to_minutes(ao12)
-        ao12 = font75.render(f"ao12 : {ao12}", True, BLACK)
-        screen.blit(ao12, (width / 1.3, 200))
+        ao12 = font50.render(f"ao12 : {ao12}", True, BLACK)
+        screen.blit(ao12, (width - ao12.get_width() - 10, 270))
 
 def set_chrono(in_chrono, holding, start_holding, chrono):
     """set the chrono to display it right after"""
