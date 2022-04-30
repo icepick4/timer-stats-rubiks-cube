@@ -5,12 +5,12 @@
 
 - Launch timer : PRESS SPACE BAR (for at least 0.5s)
 - Stop timer : PRESS SPACE BAR
-- Switch between cubes : ARROWS
-- Switch between dates (for stats page) : ARROWS
+- Switch between cubes (for timer & stats page) : ARROWS (right/left)
+- Switch between dates (for stats page) : ARROWS (up/down) SCROLL (up/down)
 
 ## Goal
 
-- Makes your bests times for each cubes ! 
+- Make your bests times for each cubes ! 
 - And see your progression day by day !
 
 ## Important
